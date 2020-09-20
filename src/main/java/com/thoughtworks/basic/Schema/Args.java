@@ -44,6 +44,9 @@ public class Args {
         if(type.equals(Boolean.TYPE)){
             value = Boolean.parseBoolean(value.toString());
         }
+        if(type.equals(Integer.TYPE)){
+            value = Integer.parseInt(value.toString());
+        }
         return value;
     }
 }
