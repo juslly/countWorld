@@ -144,4 +144,26 @@ public class ArgsTest {
         Assert.assertEquals("Param should have space!", errorStr);
     }
 
+    /**
+     * 输入值校验
+     */
+//    @Test
+//    public void shouldThrowExceptionWhenTheSameFlag(){
+//        Set<FlagSchema> flagSchemaSet = new HashSet<FlagSchema>();
+//        flagSchemaSet.add(new FlagSchema("d", ValueType.STRING));
+//        Schema schema = new Schema(flagSchemaSet);
+//
+//        String argsTest = "-p true -p 8080 -d";
+//        Args args = new Args(argsTest,schema);
+//
+//        String errorStr = "";
+//        try {
+//            Object value = args.getValueOf("d");
+//        } catch (Exception e) {
+//            errorStr = e.getMessage();
+//        }
+//
+//        Assert.assertEquals("Param can not repeat!", errorStr);
+//    }
+
 }

@@ -37,21 +37,10 @@ public class Args {
                 value = splitKeyValue[1];
             }
 
-            //paramCheck(key,value);
             keyValuePairs.add(new KeyValuePair(key,value));
          });
         return keyValuePairs;
     }
-
-//    private void paramCheck(String key, String value) {
-//        if (!containsFlagOfSchema(key)) {
-//            throw new IllegalArgumentException(key + " is not defined!");
-//        }
-//        if (key.startsWith(space) || value.trim().contains(space)) {
-//            throw new IllegalArgumentException("Param is illegal!");
-//        }
-//
-//    }
 
     private List<String> splitInput() {
         List<String> keyValues = Arrays.asList(args.split("-"));
@@ -63,13 +52,27 @@ public class Args {
     }
 
     private void check(String args) {
-
+        //不能为-p-d
         String regEx = "^.*-[A-Za-z]-.*$";
         Pattern pattern = Pattern.compile(regEx);
         Matcher matcher = pattern.matcher(args);
         if (matcher.matches()) {
             throw new IllegalArgumentException("Param should have space!");
         }
+        //不允许输入重复flag
+//        String argCopy = args;
+//        List<String> splitStrList = new ArrayList<String>();
+//        while(!argCopy.isEmpty()){
+//            String splitStr = argCopy.substring(argCopy.indexOf('-'),argCopy.indexOf('-') + 2);
+//            if(splitStrList.contains(splitStr)){
+//                throw new IllegalArgumentException("Param can not repeat!");
+//            }
+//            splitStrList.add(splitStr);
+//            List<String> keyValues = Arrays.asList(argCopy.split("-"));
+//            argCopy = argCopy.substring(argCopy.indexOf('-') + 1,argCopy.length());
+//
+//        }
+
 
     }
 
