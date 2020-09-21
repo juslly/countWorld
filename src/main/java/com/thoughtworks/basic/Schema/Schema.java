@@ -9,7 +9,7 @@ public class Schema {
         this.flagSchemaSet = flagSchemaSet;
     }
 
-    public Object getTypeOf(String flag) {
+    public String getTypeOf(String flag) {
         return flagSchemaSet.stream()
                 .filter(flagSchema -> flagSchema.equalsWith(flag))
                 .findFirst()

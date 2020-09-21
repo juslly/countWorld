@@ -1,9 +1,6 @@
 package com.thoughtworks.basic.SchemcalTest;
 
-import com.thoughtworks.basic.Schema.Args;
-import com.thoughtworks.basic.Schema.FlagSchema;
-import com.thoughtworks.basic.Schema.KeyValuePair;
-import com.thoughtworks.basic.Schema.Schema;
+import com.thoughtworks.basic.Schema.*;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -18,7 +15,7 @@ public class ArgsTest {
     public void shouldReturnStringListWhenScanGivenString(){
 
         Set<FlagSchema> flagSchemaSet = new HashSet<FlagSchema>();
-        flagSchemaSet.add(new FlagSchema("l",Boolean.TYPE));
+        flagSchemaSet.add(new FlagSchema("l",ValueType.BOOLEAN));
         Schema schema = new Schema(flagSchemaSet);
 
         String argsTest = "-l true -p 8080 -d usr/logs";
@@ -32,7 +29,7 @@ public class ArgsTest {
     public void shouldReturnCorrectValueWhenScanGetValueOfFlag(){
 
         Set<FlagSchema> flagSchemaSet = new HashSet<FlagSchema>();
-        flagSchemaSet.add(new FlagSchema("l",Boolean.TYPE));
+        flagSchemaSet.add(new FlagSchema("l", ValueType.BOOLEAN));
         Schema schema = new Schema(flagSchemaSet);
 
         String argsTest = "-l true -p 8080 -d usr/logs";
@@ -46,7 +43,7 @@ public class ArgsTest {
     public void shouldReturnIntTypeValueWhenScanGetValueOfFlag(){
 
         Set<FlagSchema> flagSchemaSet = new HashSet<FlagSchema>();
-        flagSchemaSet.add(new FlagSchema("p",Integer.TYPE));
+        flagSchemaSet.add(new FlagSchema("p",ValueType.INTEGER));
         Schema schema = new Schema(flagSchemaSet);
 
         String argsTest = "-l true -p 8080 -d usr/logs";
@@ -54,5 +51,19 @@ public class ArgsTest {
         Object value = args.getValueOf("p");
 
         assertEquals(value,8080);
+    }
+
+    @Test
+    public void shouldReturnStringTypeValueWhenScanGetValueOfFlag(){
+
+        Set<FlagSchema> flagSchemaSet = new HashSet<FlagSchema>();
+        flagSchemaSet.add(new FlagSchema("d",ValueType.STRING));
+        Schema schema = new Schema(flagSchemaSet);
+
+        String argsTest = "-l true -p 8080 -d usr/logs";
+        Args args = new Args(argsTest,schema);
+        Object value = args.getValueOf("d");
+
+        assertEquals(value,"usr/logs");
     }
 }

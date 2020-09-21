@@ -40,11 +40,14 @@ public class Args {
                 .map(KeyValuePair::getValue).orElse(null);
 
         Object type = schema.getTypeOf(flag);
+        if(type.equals("java.lang.String")){
+            return value;
+        }
         //强制类型转换
-        if(type.equals(Boolean.TYPE)){
+        if(type.equals("java.lang.Boolean")){
             value = Boolean.parseBoolean(value.toString());
         }
-        if(type.equals(Integer.TYPE)){
+        if(type.equals("java.lang.Integer")){
             value = Integer.parseInt(value.toString());
         }
         return value;
