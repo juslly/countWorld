@@ -1,7 +1,10 @@
 package com.thoughtworks.basic.SchemcalTest;
 
 import com.thoughtworks.basic.Schema.*;
+import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +14,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ArgsTest {
+    @Rule
+
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
     public void shouldReturnStringListWhenScanGivenString(){
 
@@ -113,6 +120,28 @@ public class ArgsTest {
         Object value = args.getValueOf("d");
 
         assertEquals(value,"");
+    }
+
+    /**
+     * 输入值校验
+     */
+    @Test
+    public void shouldThrowExceptionWhenInputIsNotLegal(){
+        Set<FlagSchema> flagSchemaSet = new HashSet<FlagSchema>();
+        flagSchemaSet.add(new FlagSchema("d", ValueType.STRING));
+        Schema schema = new Schema(flagSchemaSet);
+
+        String argsTest = "-l-p 8080 -d";
+        Args args = new Args(argsTest,schema);
+
+        String errorStr = "";
+        try {
+            Object value = args.getValueOf("d");
+        } catch (Exception e) {
+            errorStr = e.getMessage();
+        }
+
+        Assert.assertEquals("Param should have space!", errorStr);
     }
 
 }
