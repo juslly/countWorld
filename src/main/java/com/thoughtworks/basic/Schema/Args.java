@@ -24,9 +24,17 @@ public class Args {
 
         List<KeyValuePair> keyValuePairs = new ArrayList<KeyValuePair>();
         keyValues.forEach(keyValue -> {
-            String[] splitKeyValue = keyValue.split(" ");
-            String key = splitKeyValue[0];
-            String value = splitKeyValue[1];
+            String key;
+            String value;
+            if(!keyValue.contains(" ")){
+                key = keyValue;
+                value= "";
+            }else{
+                String[] splitKeyValue = keyValue.split(" ");
+                key = splitKeyValue[0];
+                value = splitKeyValue[1];
+            }
+
             keyValuePairs.add(new KeyValuePair(key,value));
          });
         return keyValuePairs;
@@ -34,10 +42,24 @@ public class Args {
 
     public Object getValueOf(String flag) {
         List<KeyValuePair> keyValuePairs = scan();
+
         Object value =  keyValuePairs.stream()
                 .filter(keyValue -> flag.equals(keyValue.getKey()))
                 .findFirst()
                 .map(KeyValuePair::getValue).orElse(null);
+        if("".equals(value)){
+            value = schema.getDefaultValueOf(flag);
+        }
+//        Object value;
+//        for (KeyValuePair keyValue : keyValuePairs) {
+//            if (flag.equals(keyValue.getKey())) {
+//                value = keyValue.getValue();
+//                if("".equals(value)){
+//                    value = schema.getDefaultValueOf(flag);
+//
+//                }
+//            }
+//        }
 
         Object type = schema.getTypeOf(flag);
         if(type.equals("java.lang.String")){

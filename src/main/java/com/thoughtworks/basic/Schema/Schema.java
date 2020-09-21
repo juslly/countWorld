@@ -16,4 +16,23 @@ public class Schema {
                 .get()
                 .getType();
     }
+
+    public Object getDefaultValueOf(String flag){
+//        Object result;
+//        for(int i = 0;i < flagSchemaSet.size();i++){
+//            if (flag.equals(.getType())){
+//                result = flagSchema.getDefaultValue();
+//            }
+//        }
+//        flagSchemaSet.forEach(flagSchema -> {
+//
+//        });
+
+        return flagSchemaSet.stream()
+                .filter(flagSchema -> flag.equals(flagSchema.getFlag()))
+                .findFirst()
+                .map(FlagSchema::getDefaultValue)
+                .orElse(null);
+
+    }
 }

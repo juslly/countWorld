@@ -21,4 +21,12 @@ public class FlagSchema {
        //return type;
         return valueType.getType();
     }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public Object getDefaultValue(){
+        return valueType.getDefaultValue();
+    }
 }

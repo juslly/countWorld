@@ -1,10 +1,10 @@
 package com.thoughtworks.basic.Schema;
 
-public enum ValueType {
+public enum  ValueType {
     /**
      * 设置默认值
      */
-    BOOLEAN(false),
+    BOOLEAN(true),
     INTEGER(0),
     STRING("");
 

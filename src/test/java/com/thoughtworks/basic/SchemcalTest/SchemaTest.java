@@ -29,4 +29,5 @@ public class SchemaTest {
         assertEquals("java.lang.Integer",type);
     }
 
+
 }

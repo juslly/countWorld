@@ -66,4 +66,53 @@ public class ArgsTest {
 
         assertEquals(value,"usr/logs");
     }
+
+    /**
+     * 默认值测试
+     */
+    @Test
+    public void shouldReturnDefaultValueWhenUseGetValueOf(){
+        Set<FlagSchema> flagSchemaSet = new HashSet<FlagSchema>();
+        flagSchemaSet.add(new FlagSchema("l", ValueType.BOOLEAN));
+        Schema schema = new Schema(flagSchemaSet);
+
+        String argsTest = "-l  -p 8080 -d usr/logs";
+        Args args = new Args(argsTest,schema);
+        Object value = args.getValueOf("l");
+
+        assertEquals(value,true);
+    }
+
+    /**
+     * 默认值测试
+     */
+    @Test
+    public void shouldReturnDefaultValueFor0WhenUseGetValueOf(){
+        Set<FlagSchema> flagSchemaSet = new HashSet<FlagSchema>();
+        flagSchemaSet.add(new FlagSchema("p", ValueType.INTEGER));
+        Schema schema = new Schema(flagSchemaSet);
+
+        String argsTest = "-l  -p  -d usr/logs";
+        Args args = new Args(argsTest,schema);
+        Object value = args.getValueOf("p");
+
+        assertEquals(value,0);
+    }
+
+    /**
+     * 默认值测试
+     */
+    @Test
+    public void shouldReturnDefaultValueForNullStrWhenUseGetValueOf(){
+        Set<FlagSchema> flagSchemaSet = new HashSet<FlagSchema>();
+        flagSchemaSet.add(new FlagSchema("d", ValueType.STRING));
+        Schema schema = new Schema(flagSchemaSet);
+
+        String argsTest = "-l true -p 8080 -d ";
+        Args args = new Args(argsTest,schema);
+        Object value = args.getValueOf("d");
+
+        assertEquals(value,"");
+    }
+
 }
